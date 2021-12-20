@@ -2,6 +2,7 @@ let colors = []
 const textColorGuess = document.querySelector('#rgb-color');
 const colorsForChoices = document.querySelector('#colors-for-choices');
 const answer = document.querySelector('#answer');
+const buttonResetGame = document.querySelector('#reset-game');
 
 function colorRandom() {
     let color = `(${Math.floor(Math.random()*256)}, ${Math.floor(Math.random()*256)}, ${Math.floor(Math.random()*256)})`;
@@ -10,25 +11,17 @@ function colorRandom() {
 function mysteriousColor() {
     colors = [];
     const colorGuess = colorRandom();
-    console.log(colorGuess);
     const color1 = colorRandom();
-    console.log(color1);
     const color2 = colorRandom();
-    console.log(color2);
     const color3 = colorRandom();
-    console.log(color3);
     const color4 = colorRandom();
-    console.log(color4);
     const color5 = colorRandom();
-    console.log(color5);
     colors.push(colorGuess, color1, color2, color3, color4, color5);
-    console.log(colors);
 }
 
 
 function createRiddle() {
     let functionColors = colors;
-    console.log(functionColors)
     textColorGuess.innerHTML = functionColors[0];
     for (let i = functionColors.length - 1; i >= 0; i -= 1) {
         const colorToChoose = document.createElement('div');
@@ -41,7 +34,6 @@ function createRiddle() {
 }
 function checkTheAnswer(e) {
     const question = e.target.style.backgroundColor;
-    console.log(question)
     const correct = `rgb${textColorGuess.innerHTML}`;
     if (question === correct) {
         answer.innerHTML = "Acertou!";
@@ -49,5 +41,17 @@ function checkTheAnswer(e) {
         answer.innerHTML = "Errou! Tente novamente!";
     }
 }
+
+function resetGame() {
+    for (let  i = colorsForChoices.children.length - 1; i >= 0; i -= 1) {
+        const ball = colorsForChoices.children[i];
+        colorsForChoices.removeChild(ball);
+    }
+    mysteriousColor()
+    createRiddle()
+}
+
 mysteriousColor()
 createRiddle()
+
+buttonResetGame.addEventListener('click', resetGame)
