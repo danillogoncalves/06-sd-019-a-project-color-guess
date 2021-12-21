@@ -3,6 +3,9 @@ const textColorGuess = document.querySelector('#rgb-color');
 const colorsForChoices = document.querySelector('#colors-for-choices');
 const answer = document.querySelector('#answer');
 const buttonResetGame = document.querySelector('#reset-game');
+const score = document.querySelector('#score');
+let numberScore = 0;
+score.innerHTML = `Placar: ${numberScore}`;
 
 function colorRandom() {
     let color = `(${Math.floor(Math.random()*256)}, ${Math.floor(Math.random()*256)}, ${Math.floor(Math.random()*256)})`;
@@ -37,8 +40,12 @@ function checkTheAnswer(e) {
     const correct = `rgb${textColorGuess.innerHTML}`;
     if (question === correct) {
         answer.innerHTML = "Acertou!";
+        numberScore += 3;
+        score.innerHTML = `Placar: ${numberScore}`;
     } else {
         answer.innerHTML = "Errou! Tente novamente!";
+        numberScore -= 1;
+        score.innerHTML = `Placar: ${numberScore}`;
     }
 }
 
